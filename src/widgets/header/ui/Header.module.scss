@@ -1,0 +1,82 @@
+@use '@/app/styles/variables.scss' as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 24px;
+  background: linear-gradient(180deg, rgba(28, 34, 48, 0.95) 0%, rgba(21, 25, 34, 0.9) 100%);
+  border-bottom: 2px solid $color-border-gold;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logoMark {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  font-family: $font-display;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: $color-text-gold;
+  background: radial-gradient(circle at 30% 30%, #4a3f28, #1a1510);
+  border: 2px solid $color-border-gold-bright;
+  box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.2), 0 0 16px rgba(196, 163, 90, 0.15);
+}
+
+.title {
+  margin: 0;
+  font-family: $font-display;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: $color-text-gold;
+  text-transform: lowercase;
+}
+
+.slogan {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+  color: $color-text-muted;
+  font-style: italic;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 8px 14px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(139, 115, 64, 0.45);
+}
+
+.badgeLabel {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $color-text-muted;
+}
+
+.badgeValue {
+  font-family: $font-display;
+  font-size: 0.9rem;
+  color: $color-positive;
+}
+
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .badge {
+    align-self: flex-end;
+  }
+}

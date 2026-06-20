@@ -1,0 +1,67 @@
+@use '@/app/styles/variables.scss' as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $color-text-muted;
+}
+
+.rank {
+  font-size: 0.8rem;
+  color: $color-networth;
+  font-style: italic;
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input {
+  flex: 1;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(139, 115, 64, 0.5);
+  color: $color-text-gold;
+  font-family: $font-display;
+  font-size: 1.4rem;
+  font-weight: 700;
+
+  &:focus {
+    outline: none;
+    border-color: $color-border-gold-bright;
+  }
+}
+
+.gold {
+  font-size: 0.85rem;
+  color: $color-text-muted;
+  text-transform: uppercase;
+}
+
+.slider {
+  width: 100%;
+  accent-color: $color-networth;
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.78rem;
+  color: $color-text-muted;
+  line-height: 1.4;
+}

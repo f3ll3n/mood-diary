@@ -1,0 +1,104 @@
+@use '@/app/styles/variables.scss' as *;
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navBtn {
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(139, 115, 64, 0.45);
+  color: $color-text-gold;
+  font-size: 1.2rem;
+  line-height: 1;
+
+  &:hover {
+    border-color: $color-border-gold-bright;
+  }
+}
+
+.monthLabel {
+  font-family: $font-display;
+  font-size: 1rem;
+  text-transform: capitalize;
+  color: $color-text-primary;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.weekday {
+  text-align: center;
+  font-size: 0.7rem;
+  color: $color-text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.blank {
+  aspect-ratio: 1;
+}
+
+.day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(139, 115, 64, 0.25);
+  color: $color-text-muted;
+  font-size: 0.85rem;
+  transition: border-color $transition-fast, background $transition-fast;
+
+  &:hover {
+    border-color: $color-border-gold;
+    color: $color-text-primary;
+  }
+}
+
+.selected {
+  border-color: $color-border-gold-bright !important;
+  background: rgba(196, 163, 90, 0.12);
+  color: $color-text-gold;
+  box-shadow: inset 0 0 8px rgba(196, 163, 90, 0.15);
+}
+
+.hasEntry {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.outside {
+  opacity: 0.35;
+}
+
+.dayNum {
+  line-height: 1;
+}
+
+.moodDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mood-color, $color-mood-neutral);
+  box-shadow: 0 0 6px var(--mood-color, $color-mood-neutral);
+}

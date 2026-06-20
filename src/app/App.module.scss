@@ -1,0 +1,28 @@
+@use './styles/variables.scss' as *;
+
+.loader {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: $color-bg-deep;
+}
+
+.loaderText {
+  font-family: $font-display;
+  font-size: 1rem;
+  color: $color-text-gold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,69 @@
+@use '@/app/styles/variables.scss' as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.display {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.number {
+  font-family: $font-display;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 3ch;
+}
+
+.label {
+  font-size: 1rem;
+  color: $color-text-muted;
+  text-transform: lowercase;
+}
+
+.slider {
+  width: 100%;
+  height: 8px;
+  appearance: none;
+  background: linear-gradient(
+    90deg,
+    $color-mood-low 0%,
+    $color-mood-neutral 50%,
+    $color-mood-high 100%
+  );
+  border: 1px solid rgba(139, 115, 64, 0.5);
+  outline: none;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    background: radial-gradient(circle at 35% 35%, #fff 0%, var(--mood-color) 40%, #1a1a1a 100%);
+    border: 2px solid $color-border-gold-bright;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  &::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    background: var(--mood-color);
+    border: 2px solid $color-border-gold-bright;
+    border-radius: 50%;
+  }
+}
+
+.scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: $color-text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
