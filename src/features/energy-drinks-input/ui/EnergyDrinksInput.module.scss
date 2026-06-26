@@ -4,46 +4,50 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .title {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: $color-mana;
+  letter-spacing: 0.15em;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 .mana {
-  font-size: 0.78rem;
-  color: $color-text-muted;
+  font-size: 0.85rem;
+  color: $color-mana;
 }
 
 .controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
 }
 
 .btn {
-  width: 40px;
-  height: 40px;
-  background: rgba(74, 144, 217, 0.15);
-  border: 1px solid rgba(74, 144, 217, 0.5);
+  width: 44px;
+  height: 44px;
+  background: rgba(93, 173, 226, 0.1);
+  border: 1px solid rgba(93, 173, 226, 0.3);
   color: $color-mana;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   line-height: 1;
-  transition: background $transition-fast;
+  transition: all 0.2s ease;
 
   &:hover {
-    background: rgba(74, 144, 217, 0.3);
+    background: rgba(93, 173, 226, 0.25);
+    border-color: $color-mana;
+    box-shadow: 0 0 10px rgba(93, 173, 226, 0.3);
   }
 }
 
@@ -55,16 +59,19 @@
 }
 
 .number {
-  font-family: $font-display;
-  font-size: 2rem;
+  font-family: $font-ui;
+  font-size: 2.2rem;
+  font-weight: 700;
   color: $color-mana;
   line-height: 1;
+  text-shadow: 0 0 10px rgba(93, 173, 226, 0.4);
 }
 
 .unit {
-  font-size: 0.75rem;
-  color: $color-text-muted;
+  font-size: 0.7rem;
+  color: #888;
   text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .flasks {
@@ -72,26 +79,29 @@
   flex-wrap: wrap;
   gap: 6px;
   min-height: 28px;
+  justify-content: center;
 }
 
 .flask {
-  width: 18px;
+  width: 16px;
   height: 24px;
-  background: linear-gradient(180deg, #6ec4ff 0%, #2a6db5 60%, #1a4070 100%);
-  border: 1px solid rgba(110, 196, 255, 0.6);
+  background: linear-gradient(180deg, #7ec8f0 0%, #3a7ab5 55%, #1e4a70 100%);
+  border: 1px solid rgba(126, 200, 240, 0.5);
   border-radius: 2px 2px 4px 4px;
-  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.4), 0 0 8px rgba(93, 173, 226, 0.3);
 }
 
 .overflow {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: $color-mana;
   align-self: center;
+  font-weight: 700;
 }
 
 .hint {
   margin: 0;
-  font-size: 0.78rem;
-  color: $color-text-muted;
+  font-size: 0.75rem;
+  color: #666;
   line-height: 1.4;
+  text-align: center;
 }

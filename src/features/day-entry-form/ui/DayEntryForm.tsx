@@ -3,7 +3,6 @@ import { useDiaryStore } from '@/entities/day-entry'
 import { MoodRating } from '@/features/mood-rating'
 import { NetworthInput } from '@/features/networth-input'
 import { EnergyDrinksInput } from '@/features/energy-drinks-input'
-import { Button, Panel } from '@/shared/ui/panel'
 import { todayKey } from '@/shared/lib/date/formatDate'
 import styles from './DayEntryForm.module.scss'
 
@@ -47,52 +46,45 @@ export function DayEntryForm() {
   }
 
   return (
-    <Panel
-      title={isToday ? 'Катка дня' : 'Запись за день'}
-      subtitle={isToday ? 'Оцени сегодняшний матчлог' : 'Редактирование прошлой катки'}
-      accent="gold"
-    >
-      <div className={styles.form}>
-        <section className={styles.section}>
-          <h3 className={styles.sectionTitle}>Общее настроение</h3>
+    <>
+      <div className={styles.centerHero}>
+        <h2 className={styles.heroTitle}>{isToday ? 'CURRENT MATCH' : 'MATCH REPLAY'}</h2>
+        
+        <div className={styles.moodWrapper}>
           <MoodRating
             value={draft.mood}
             onChange={(mood) => setDraft((d) => ({ ...d, mood }))}
           />
-        </section>
+        </div>
 
-        <section className={styles.section}>
+        <div className={styles.statsRow}>
           <NetworthInput
             value={draft.feltNetworth}
             onChange={(feltNetworth) => setDraft((d) => ({ ...d, feltNetworth }))}
           />
-        </section>
-
-        <section className={styles.section}>
+          <div className={styles.divider} />
           <EnergyDrinksInput
             value={draft.energyDrinks}
             onChange={(energyDrinks) => setDraft((d) => ({ ...d, energyDrinks }))}
           />
-        </section>
-
-        <section className={styles.section}>
-          <label className={styles.noteLabel} htmlFor="day-note">
-            Заметка в All Chat
-          </label>
-          <textarea
-            id="day-note"
-            className={styles.note}
-            rows={3}
-            placeholder="Что произошло на лайне жизни..."
-            value={draft.note}
-            onChange={(e) => setDraft((d) => ({ ...d, note: e.target.value }))}
-          />
-        </section>
-
-        <div className={styles.actions}>
-          <Button onClick={handleSave}>{saved ? '✓ Сохранено' : 'Сохранить катку'}</Button>
         </div>
       </div>
-    </Panel>
+
+      <div className={styles.chatBox}>
+        <div className={styles.chatHeader}>
+          <span className={styles.chatTab}>All Chat</span>
+        </div>
+        <textarea
+          className={styles.chatInput}
+          placeholder="Say something..."
+          value={draft.note}
+          onChange={(e) => setDraft((d) => ({ ...d, note: e.target.value }))}
+        />
+      </div>
+
+      <button className={styles.playButton} onClick={handleSave}>
+        <span className={styles.playButtonText}>{saved ? 'SAVED' : 'RECORD MATCH'}</span>
+      </button>
+    </>
   )
 }

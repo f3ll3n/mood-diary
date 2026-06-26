@@ -1,5 +1,40 @@
 @use './styles/variables.scss' as *;
 
+.appLayout {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: $color-text-muted;
+  font-family: $font-ui;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+
+  h2 {
+    font-family: $font-display;
+    font-size: 2rem;
+    color: $color-text-primary;
+    margin-bottom: 10px;
+  }
+}
+
 .loader {
   min-height: 100vh;
   display: grid;
@@ -8,10 +43,10 @@
 }
 
 .loaderText {
-  font-family: $font-display;
-  font-size: 1rem;
+  font-family: $font-ui;
+  font-size: 0.85rem;
   color: $color-text-gold;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   animation: pulse 1.5s ease-in-out infinite;
 }
@@ -19,7 +54,7 @@
 @keyframes pulse {
   0%,
   100% {
-    opacity: 0.5;
+    opacity: 0.4;
   }
 
   50% {

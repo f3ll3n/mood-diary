@@ -6,16 +6,30 @@ interface PanelProps {
   subtitle?: string
   children: ReactNode
   className?: string
-  accent?: 'gold' | 'blue' | 'red'
+  ornate?: boolean
 }
 
 function cx(...parts: Array<string | false | undefined>) {
   return parts.filter(Boolean).join(' ')
 }
 
-export function Panel({ title, subtitle, children, className, accent = 'gold' }: PanelProps) {
+export function Panel({
+  title,
+  subtitle,
+  children,
+  className,
+  ornate = true,
+}: PanelProps) {
   return (
-    <section className={cx(styles.panel, styles[`accent_${accent}`], className)}>
+    <section className={cx(styles.panel, className)}>
+      {ornate && (
+        <>
+          <span className={styles.cornerTL} aria-hidden />
+          <span className={styles.cornerTR} aria-hidden />
+          <span className={styles.cornerBL} aria-hidden />
+          <span className={styles.cornerBR} aria-hidden />
+        </>
+      )}
       {(title || subtitle) && (
         <header className={styles.header}>
           {title && <h2 className={styles.title}>{title}</h2>}
@@ -33,7 +47,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function Button({ variant = 'primary', className, children, ...props }: ButtonProps) {
   return (
-    <button className={cx(styles.button, styles[`button_${variant}`], className)} {...props}>
+    <button className={cx(styles.button, variant === 'ghost' && styles.button_ghost, className)} {...props}>
       {children}
     </button>
   )

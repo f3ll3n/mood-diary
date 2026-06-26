@@ -1,4 +1,5 @@
-import { Header } from '@/widgets/header'
+import { useState } from 'react'
+import { PlayerCard } from '@/widgets/player-card'
 import { DayEntryForm } from '@/features/day-entry-form'
 import { MoodCalendar } from '@/widgets/mood-calendar'
 import { MatchSummary } from '@/widgets/match-summary'
@@ -6,25 +7,34 @@ import { MoodChart } from '@/widgets/mood-chart'
 import styles from './DiaryPage.module.scss'
 
 export function DiaryPage() {
-  return (
-    <div className={styles.page}>
-      <Header />
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
-      <main className={styles.main}>
-        <div className={styles.column}>
-          <DayEntryForm />
+  return (
+    <div className={styles.dashboard}>
+      <aside className={styles.leftSidebar}>
+        <PlayerCard />
+        
+        <button 
+          className={styles.mobileAccordionToggle}
+          onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+        >
+          <span className={styles.toggleText}>MATCH CALENDAR</span>
+          <span className={styles.toggleIcon}>{isCalendarOpen ? '▲' : '▼'}</span>
+        </button>
+
+        <div className={[styles.calendarWrapper, isCalendarOpen && styles.calendarOpen].filter(Boolean).join(' ')}>
           <MoodCalendar />
         </div>
+      </aside>
 
-        <div className={styles.column}>
-          <MatchSummary />
-          <MoodChart />
-        </div>
+      <main className={styles.centerArea}>
+        <DayEntryForm />
       </main>
 
-      <footer className={styles.footer}>
-        Данные хранятся локально в IndexedDB. Не замена терапии — инструмент самонаблюдения.
-      </footer>
+      <aside className={styles.rightSidebar}>
+        <MatchSummary />
+        <MoodChart />
+      </aside>
     </div>
   )
 }

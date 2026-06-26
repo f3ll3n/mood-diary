@@ -1,61 +1,184 @@
 @use '@/app/styles/variables.scss' as *;
 
-.form {
+.centerHero {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  align-items: center;
+  gap: 40px;
+  animation: fadeIn 0.5s ease-out;
 }
 
-.section {
-  padding-bottom: 18px;
-  border-bottom: 1px solid rgba(139, 115, 64, 0.2);
-
-  &:last-of-type {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.sectionTitle {
-  margin: 0 0 12px;
+.heroTitle {
   font-family: $font-display;
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 3.5rem;
+  color: #fff;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+  letter-spacing: 0.15em;
+  margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: $color-text-muted;
+  text-align: center;
 }
 
-.noteLabel {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 0.85rem;
-  color: $color-text-muted;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+.moodWrapper {
+  width: 600px;
 }
 
-.note {
-  width: 100%;
-  padding: 10px 12px;
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(139, 115, 64, 0.5);
-  color: $color-text-primary;
-  resize: vertical;
-  min-height: 72px;
+.statsRow {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  background: rgba(12, 15, 18, 0.85);
+  padding: 24px 48px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+}
+
+.divider {
+  width: 1px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Chat Box at bottom left */
+.chatBox {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 420px;
+  height: 220px;
+  background: rgba(18, 20, 24, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+}
+
+.chatHeader {
+  height: 36px;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.chatTab {
+  font-family: $font-ui;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.chatInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 16px;
+  font-family: $font-ui;
+  font-size: 0.95rem;
+  resize: none;
+  line-height: 1.5;
 
   &:focus {
     outline: none;
-    border-color: $color-border-gold-bright;
   }
 
   &::placeholder {
-    color: rgba(138, 143, 154, 0.6);
+    color: #555;
   }
 }
 
-.actions {
+/* Giant Play Button at bottom right */
+.playButton {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 340px;
+  height: 80px;
+  background: linear-gradient(to bottom, #5cbb5c, #2e7d32);
+  border: 2px solid #8aff8a;
+  border-radius: 2px;
+  box-shadow: 0 0 30px rgba(92, 187, 92, 0.2), inset 0 0 10px rgba(255,255,255,0.3);
+  cursor: pointer;
+  z-index: 100;
   display: flex;
-  justify-content: flex-end;
-  padding-top: 4px;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px; right: 2px; bottom: 2px;
+    border: 1px solid rgba(0,0,0,0.4);
+    pointer-events: none;
+  }
+
+  &:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 0 40px rgba(92, 187, 92, 0.4), inset 0 0 15px rgba(255,255,255,0.5);
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.playButtonText {
+  font-family: $font-display;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 1200px) {
+  .chatBox {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .playButton {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    width: 280px;
+    height: 64px;
+  }
+
+  .playButtonText {
+    font-size: 1.5rem;
+  }
+
+  .moodWrapper {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .statsRow {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+  }
 }

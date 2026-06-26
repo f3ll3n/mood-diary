@@ -13,20 +13,20 @@ export function MatchSummary() {
 
   if (!entry) {
     return (
-      <Panel
-        title="Match Summary"
-        subtitle={isToday ? 'Сегодняшняя катка ещё не записана' : 'Нет данных за этот день'}
-        accent="red"
-      >
+    <Panel
+      title="Match Overview"
+      subtitle={isToday ? 'Сегодняшняя катка ещё не записана' : 'Нет данных за этот день'}
+    >
         <p className={styles.empty}>
           {isToday
-            ? 'Заполни форму слева — и здесь появится post-game экран.'
+            ? 'Заполни форму — и здесь появится post-game экран.'
             : 'Выбери другой день или добавь запись.'}
         </p>
       </Panel>
     )
   }
 
+  const isVictory = entry.mood >= 0
   const kda = {
     k: Math.max(0, entry.mood + 5),
     d: Math.max(0, 5 - entry.mood),
@@ -35,18 +35,14 @@ export function MatchSummary() {
 
   return (
     <Panel
-      title="Match Summary"
+      title="Match Overview"
       subtitle={formatDisplayDate(selectedDate)}
-      accent="red"
     >
-      <div className={styles.hero}>
+      <div className={[styles.hero, isVictory ? styles.victory : styles.defeat].join(' ')}>
         <div className={styles.result}>
-          <span className={styles.resultLabel}>Результат дня</span>
-          <span
-            className={styles.resultValue}
-            style={{ color: getMoodColor(entry.mood) }}
-          >
-            {entry.mood >= 0 ? 'VICTORY' : 'DEFEAT'}
+          <span className={styles.resultLabel}>Result</span>
+          <span className={styles.resultValue}>
+            {isVictory ? 'VICTORY' : 'DEFEAT'}
           </span>
         </div>
 
@@ -61,47 +57,49 @@ export function MatchSummary() {
 
       <div className={styles.kda}>
         <div className={styles.kdaItem}>
-          <span className={styles.kdaNum} style={{ color: '#3d9a4f' }}>{kda.k}</span>
-          <span className={styles.kdaLabel}>K (плюсы)</span>
+          <span className={styles.kdaNum} style={{ color: '#5cbb5c' }}>{kda.k}</span>
+          <span className={styles.kdaLabel}>K</span>
         </div>
         <span className={styles.kdaSep}>/</span>
         <div className={styles.kdaItem}>
-          <span className={styles.kdaNum} style={{ color: '#a94442' }}>{kda.d}</span>
-          <span className={styles.kdaLabel}>D (минусы)</span>
+          <span className={styles.kdaNum} style={{ color: '#c04040' }}>{kda.d}</span>
+          <span className={styles.kdaLabel}>D</span>
         </div>
         <span className={styles.kdaSep}>/</span>
         <div className={styles.kdaItem}>
-          <span className={styles.kdaNum} style={{ color: '#4a90d9' }}>{kda.a}</span>
-          <span className={styles.kdaLabel}>A (clarity)</span>
+          <span className={styles.kdaNum} style={{ color: '#5dade2' }}>{kda.a}</span>
+          <span className={styles.kdaLabel}>A</span>
         </div>
       </div>
 
       <div className={styles.bars}>
         <StatBar
-          label="Ощущаемый нетворс"
+          label="Net Worth"
           value={entry.feltNetworth}
           max={8000}
-          color="#d4af37"
+          color="#c8a060"
           suffix=" g"
         />
         <StatBar
-          label="Clarity mana"
+          label="Mana Restored"
           value={entry.energyDrinks * 120}
           max={1200}
-          color="#4a90d9"
+          color="#5dade2"
           suffix=" MP"
         />
         <StatBar
-          label="Mood impact"
+          label="Mood Impact"
           value={entry.mood + 5}
           max={10}
           color={getMoodColor(entry.mood)}
+          showPercent
         />
       </div>
 
       {entry.note && (
         <blockquote className={styles.note}>
-          <span className={styles.noteLabel}>All Chat:</span> {entry.note}
+          <span className={styles.noteLabel}>All Chat</span>
+          {entry.note}
         </blockquote>
       )}
     </Panel>

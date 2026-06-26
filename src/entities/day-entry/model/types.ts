@@ -13,6 +13,8 @@ export interface DiaryState {
   entries: Record<string, DayEntry>
   selectedDate: string
   hydrated: boolean
+  playerName: string
+  playerAvatar: string | null
 }
 
 export interface DiaryActions {
@@ -20,6 +22,7 @@ export interface DiaryActions {
   upsertEntry: (entry: DayEntryInput) => void
   getEntry: (date: string) => DayEntry | undefined
   setHydrated: (value: boolean) => void
+  setPlayerProfile: (name: string, avatar: string | null) => void
 }
 
 export type DiaryStore = DiaryState & DiaryActions

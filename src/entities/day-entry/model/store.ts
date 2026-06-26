@@ -16,6 +16,8 @@ export const useDiaryStore = create<DiaryStore>()(
       entries: {},
       selectedDate: todayKey(),
       hydrated: false,
+      playerName: 'Player',
+      playerAvatar: null,
 
       setSelectedDate: (date) => set({ selectedDate: date }),
 
@@ -32,11 +34,17 @@ export const useDiaryStore = create<DiaryStore>()(
       getEntry: (date) => get().entries[date],
 
       setHydrated: (value) => set({ hydrated: value }),
+
+      setPlayerProfile: (name, avatar) => set({ playerName: name, playerAvatar: avatar }),
     }),
     {
       name: persistStorageKey,
       storage: asyncStorage,
-      partialize: (state) => ({ entries: state.entries }),
+      partialize: (state) => ({ 
+        entries: state.entries,
+        playerName: state.playerName,
+        playerAvatar: state.playerAvatar,
+      }),
       onRehydrateStorage: () => (state) => {
         state?.setHydrated(true)
       },

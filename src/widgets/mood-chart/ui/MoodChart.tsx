@@ -14,6 +14,7 @@ import {
 import { useDiaryStore } from '@/entities/day-entry'
 import { getLastNDays, formatShortDate } from '@/shared/lib/date/formatDate'
 import { getMoodColor } from '@/shared/lib/mood/getMoodColor'
+import { formatPercent, toPercent } from '@/shared/lib/math/percent'
 import { MOOD_MIN, MOOD_MAX } from '@/shared/config/constants'
 import { Panel } from '@/shared/ui/panel'
 import styles from './MoodChart.module.scss'
@@ -33,73 +34,85 @@ export function MoodChart() {
     })
   }, [entries])
 
-  const avgMood = useMemo(() => {
-    const filled = data.filter((d) => d.mood != null)
-    if (!filled.length) return null
-    return filled.reduce((sum, d) => sum + (d.mood ?? 0), 0) / filled.length
-  }, [data])
+  const stats = useMemo(() => {
+    const filled = data.filter((d): d is typeof d & { mood: number } => d.mood != null)
+    const recordedDays = filled.length
 
-  const recordedDays = data.filter((d) => d.mood != null).length
+    if (!recordedDays) {
+      return { avgMood: null as number | null, recordedDays: 0, winrate: null as number | null }
+    }
+
+    const avgMood = filled.reduce((sum, d) => sum + d.mood, 0) / recordedDays
+    const winDays = filled.filter((d) => d.mood >= 0).length
+
+    return {
+      avgMood,
+      recordedDays,
+      winrate: toPercent(winDays, recordedDays),
+    }
+  }, [data])
 
   return (
     <Panel
-      title="Post-game Summary"
-      subtitle="Срез настроения за последние 30 дней — как график после катки"
-      accent="blue"
+      title="Performance Summary"
+      subtitle="Статистика за последние 30 дней"
     >
       <div className={styles.summary}>
         <div className={styles.stat}>
-          <span className={styles.statLabel}>Средний mood</span>
+          <span className={styles.statLabel}>Avg Mood</span>
           <span className={styles.statValue}>
-            {avgMood != null ? avgMood.toFixed(1) : '—'}
+            {stats.avgMood != null ? stats.avgMood.toFixed(1) : '—'}
           </span>
         </div>
         <div className={styles.stat}>
-          <span className={styles.statLabel}>Записей</span>
-          <span className={styles.statValue}>{recordedDays}/30</span>
+          <span className={styles.statLabel}>Matches</span>
+          <span className={styles.statValue}>{stats.recordedDays}/30</span>
         </div>
         <div className={styles.stat}>
-          <span className={styles.statLabel}>Winrate*</span>
+          <span className={styles.statLabel}>Winrate</span>
           <span className={styles.statValue}>
-            {recordedDays
-              ? `${Math.round((data.filter((d) => (d.mood ?? 0) >= 0).length / recordedDays) * 100)}%`
-              : '—'}
+            {stats.winrate != null ? formatPercent(stats.winrate) : '—'}
           </span>
         </div>
       </div>
 
-      <p className={styles.footnote}>* Winrate = дней с mood ≥ 0. Сатира, не диагноз.</p>
+      <p className={styles.footnote}>Winrate = доля дней с mood ≥ 0 среди записанных. Сатира, не диагноз.</p>
 
       <div className={styles.chartBlock}>
-        <h3 className={styles.chartTitle}>Mood over time</h3>
+        <h3 className={styles.chartTitle}>Mood Timeline</h3>
         <ResponsiveContainer width="100%" height={220}>
           <LineChart data={data} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
-            <CartesianGrid stroke="rgba(139,115,64,0.2)" strokeDasharray="3 3" />
+            <CartesianGrid stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
             <XAxis
               dataKey="label"
-              tick={{ fill: '#8a8f9a', fontSize: 10 }}
+              tick={{ fill: '#697680', fontSize: 10, fontFamily: 'Roboto Condensed' }}
               interval="preserveStartEnd"
+              axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+              tickLine={false}
             />
             <YAxis
               domain={[MOOD_MIN, MOOD_MAX]}
-              tick={{ fill: '#8a8f9a', fontSize: 11 }}
+              tick={{ fill: '#697680', fontSize: 11, fontFamily: 'Roboto Condensed' }}
               width={28}
+              axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+              tickLine={false}
             />
             <Tooltip
               contentStyle={{
-                background: '#151922',
-                border: '1px solid #8b7340',
+                background: 'rgba(14, 22, 30, 0.97)',
+                border: '1px solid rgba(255,255,255,0.1)',
                 borderRadius: 0,
-                color: '#e8dcc4',
+                color: '#c8cdd2',
+                fontFamily: 'Roboto Condensed',
               }}
               formatter={(value) => [value ?? 'нет данных', 'Mood']}
             />
             <Line
               type="monotone"
               dataKey="mood"
-              stroke="#c4a35a"
+              stroke="#8eb9d6"
               strokeWidth={2}
-              dot={{ fill: '#d4af37', r: 3 }}
+              dot={{ fill: '#c8cdd2', r: 3, stroke: '#1e2a34', strokeWidth: 1 }}
               connectNulls={false}
             />
           </LineChart>
@@ -107,25 +120,31 @@ export function MoodChart() {
       </div>
 
       <div className={styles.chartBlock}>
-        <h3 className={styles.chartTitle}>Daily mood bars</h3>
+        <h3 className={styles.chartTitle}>Daily Breakdown</h3>
         <ResponsiveContainer width="100%" height={180}>
           <BarChart data={data} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
-            <CartesianGrid stroke="rgba(139,115,64,0.15)" vertical={false} />
-            <XAxis dataKey="label" tick={{ fill: '#8a8f9a', fontSize: 9 }} hide />
-            <YAxis domain={[MOOD_MIN, MOOD_MAX]} tick={{ fill: '#8a8f9a', fontSize: 11 }} width={28} />
+            <CartesianGrid stroke="rgba(255,255,255,0.02)" vertical={false} />
+            <XAxis dataKey="label" hide />
+            <YAxis
+              domain={[MOOD_MIN, MOOD_MAX]}
+              tick={{ fill: '#697680', fontSize: 11 }}
+              width={28}
+              axisLine={false}
+              tickLine={false}
+            />
             <Tooltip
               contentStyle={{
-                background: '#151922',
-                border: '1px solid #8b7340',
+                background: 'rgba(14, 22, 30, 0.97)',
+                border: '1px solid rgba(255,255,255,0.1)',
                 borderRadius: 0,
-                color: '#e8dcc4',
+                color: '#c8cdd2',
               }}
             />
-            <Bar dataKey="mood" radius={[2, 2, 0, 0]}>
+            <Bar dataKey="mood" radius={0}>
               {data.map((entry) => (
                 <Cell
                   key={entry.date}
-                  fill={entry.mood != null ? getMoodColor(entry.mood) : 'rgba(107,114,128,0.3)'}
+                  fill={entry.mood != null ? getMoodColor(entry.mood) : 'rgba(105,118,128,0.25)'}
                 />
               ))}
             </Bar>

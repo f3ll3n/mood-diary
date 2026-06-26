@@ -1,98 +1,72 @@
 @use '@/app/styles/variables.scss' as *;
+@use '@/app/styles/dota-mixins.scss' as dota;
 
 .panel {
-  background: linear-gradient(180deg, $color-bg-panel-light 0%, $color-bg-panel 100%);
-  border: 1px solid $color-border-gold;
-  box-shadow: $shadow-panel, inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    border: 1px solid rgba(196, 163, 90, 0.15);
-    margin: 3px;
-  }
+  @include dota.dota-panel-frame;
 }
 
-.accent_gold .title {
-  color: $color-text-gold;
+.cornerTL,
+.cornerTR,
+.cornerBL,
+.cornerBR {
+  @include dota.dota-corner-ornament;
 }
 
-.accent_blue .title {
-  color: $color-mana;
+.cornerTL {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
 }
 
-.accent_red .title {
-  color: $color-mood-high;
+.cornerTR {
+  top: -1px;
+  right: -1px;
+  border-width: 2px 2px 0 0;
+}
+
+.cornerBL {
+  bottom: -1px;
+  left: -1px;
+  border-width: 0 0 2px 2px;
+}
+
+.cornerBR {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 2px 2px 0;
 }
 
 .header {
-  padding: 14px 18px 0;
-  border-bottom: 1px solid rgba(139, 115, 64, 0.35);
-  margin-bottom: 0;
+  @include dota.dota-panel-header;
 }
 
 .title {
-  margin: 0;
-  font-family: $font-display;
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  @include dota.dota-title;
 }
 
 .subtitle {
-  margin: 4px 0 12px;
-  font-size: 0.85rem;
+  margin: 3px 0 0;
+  font-size: 0.75rem;
   color: $color-text-muted;
+  letter-spacing: 0.02em;
 }
 
 .body {
-  padding: 16px 18px 18px;
+  padding: 14px 16px 16px;
 }
 
 .button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border: 1px solid $color-border-gold;
-  font-family: $font-display;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: background $transition-fast, border-color $transition-fast, transform $transition-fast;
-
-  &:active {
-    transform: translateY(1px);
-  }
-
-  &:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-  }
-}
-
-.button_primary {
-  background: linear-gradient(180deg, #3a3020 0%, #2a2218 100%);
-  color: $color-text-gold;
-
-  &:hover:not(:disabled) {
-    background: linear-gradient(180deg, #4a3f28 0%, #3a3020 100%);
-    border-color: $color-border-gold-bright;
-  }
+  @include dota.dota-button;
 }
 
 .button_ghost {
   background: transparent;
   color: $color-text-muted;
+  box-shadow: none;
 
   &:hover:not(:disabled) {
+    background: rgba(200, 160, 96, 0.08);
     color: $color-text-primary;
-    border-color: $color-border-gold-bright;
+    filter: none;
   }
 }

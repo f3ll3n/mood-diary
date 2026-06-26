@@ -35,7 +35,7 @@ export function MoodCalendar() {
   const leadingBlanks = (getDay(startOfMonth(viewDate)) + 6) % 7
 
   return (
-    <Panel title="Календарь каток" subtitle="Выбери день для просмотра или редактирования">
+    <Panel title="Match Calendar" subtitle="Выбери день для просмотра или редактирования">
       <div className={styles.calendar}>
         <div className={styles.nav}>
           <button

@@ -1,0 +1,217 @@
+@use '@/app/styles/variables.scss' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 40px 24px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-family: $font-display;
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-family: $font-ui;
+  font-size: 1rem;
+  color: $color-text-gold;
+  margin: 8px 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 60px;
+  perspective: 1000px;
+}
+
+.itemCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 12px;
+  background: rgba(12, 15, 18, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--rarity-color, #888);
+    box-shadow: 0 0 10px var(--rarity-color, transparent);
+  }
+}
+
+.rarity_common {
+  --rarity-color: #8eb9d6;
+}
+
+.rarity_rare {
+  --rarity-color: #c8a060;
+}
+
+.rarity_very_rare {
+  --rarity-color: #e67e22;
+}
+
+.itemImage {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  transition: transform 0.3s ease;
+}
+
+.itemInfo {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.itemName {
+  font-family: $font-ui;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.itemRarity {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--rarity-color);
+}
+
+/* Elimination animation */
+.eliminated {
+  opacity: 0.3;
+  transform: scale(0.9) translateZ(-50px);
+  filter: grayscale(100%) brightness(0.5);
+  pointer-events: none;
+
+  .itemImage {
+    transform: scale(0.8);
+  }
+}
+
+.cross {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  color: rgba(192, 64, 64, 0.6);
+  font-weight: 300;
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  animation: stamp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes stamp {
+  0% { transform: scale(3); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Winner animation */
+.winner {
+  transform: scale(1.1) translateZ(50px);
+  z-index: 10;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px var(--rarity-color);
+  border-color: var(--rarity-color);
+  background: rgba(20, 25, 30, 0.95);
+
+  .itemImage {
+    transform: scale(1.2);
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100px;
+}
+
+.openBtn {
+  padding: 16px 48px;
+  font-family: $font-display;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(180deg, #c8a060 0%, #8b6b28 100%);
+  border: 2px solid #ffd57a;
+  box-shadow: 0 0 20px rgba(200, 160, 96, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.1em;
+  transition: all 0.2s ease;
+  border-radius: 2px;
+
+  &:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+    box-shadow: 0 0 30px rgba(200, 160, 96, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.5);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.openingText {
+  font-family: $font-ui;
+  font-size: 1.2rem;
+  color: $color-text-gold;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.resultBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.resultText {
+  font-family: $font-ui;
+  font-size: 1.5rem;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}

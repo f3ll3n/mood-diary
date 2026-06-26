@@ -1,4 +1,5 @@
 @use '@/app/styles/variables.scss' as *;
+@use '@/app/styles/dota-mixins.scss' as dota;
 
 .stat {
   display: flex;
@@ -14,27 +15,28 @@
 }
 
 .label {
-  font-size: 0.8rem;
+  font-size: 0.68rem;
   color: $color-text-muted;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
 }
 
 .value {
-  font-family: $font-display;
-  font-size: 1rem;
-  color: $color-text-gold;
+  font-family: $font-ui;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: $color-text-primary;
 }
 
 .track {
-  height: 10px;
-  background: rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(139, 115, 64, 0.4);
+  height: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
 }
 
 .fill {
   height: 100%;
   transition: width 300ms ease;
-  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
 }

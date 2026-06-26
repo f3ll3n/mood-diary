@@ -1,22 +1,39 @@
-$color-bg-deep: #0b0e14;
-$color-bg-panel: #151922;
-$color-bg-panel-light: #1c2230;
-$color-border-gold: #8b7340;
-$color-border-gold-bright: #c4a35a;
-$color-text-primary: #e8dcc4;
-$color-text-muted: #8a8f9a;
-$color-text-gold: #d4af37;
-$color-mood-low: #5b6ea8;
-$color-mood-neutral: #6b7280;
-$color-mood-high: #c23c2a;
-$color-positive: #3d9a4f;
-$color-negative: #a94442;
-$color-mana: #4a90d9;
-$color-networth: #d4af37;
+// Dota 2 Panorama-inspired palette
+$color-bg-deep: #060a0e;
+$color-bg-atmosphere: #0c1419;
+$color-bg-nav: rgba(8, 14, 20, 0.96);
+$color-bg-panel: rgba(14, 22, 30, 0.94);
+$color-bg-panel-header: rgba(22, 34, 44, 0.95);
+$color-bg-panel-light: rgba(18, 28, 38, 0.92);
+$color-bg-inset: rgba(0, 0, 0, 0.45);
 
-$font-display: 'Cinzel', serif;
-$font-body: 'Roboto Condensed', sans-serif;
+$color-border-dark: #1e2a34;
+$color-border-gold: #6b5830;
+$color-border-gold-bright: #c8a060;
+$color-border-gold-glow: #ffd57a;
 
-$radius-sm: 2px;
-$shadow-panel: 0 4px 24px rgba(0, 0, 0, 0.6);
-$transition-fast: 150ms ease;
+$color-text-primary: #c8cdd2;
+$color-text-bright: #e8ecf0;
+$color-text-muted: #697680;
+$color-text-gold: #c8a060;
+$color-text-gold-bright: #ffd57a;
+$color-text-blue: #8eb9d6;
+
+$color-radiant: #5cbb5c;
+$color-dire: #c04040;
+$color-mana: #5dade2;
+$color-networth: #c8a060;
+
+$color-mood-low: #4a6a8a;
+$color-mood-neutral: #697680;
+$color-mood-high: #c04040;
+
+$font-display: 'Marcellus SC', 'Cinzel', Georgia, serif;
+$font-ui: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+
+$nav-height: 56px;
+$sidebar-width: 220px;
+$panel-border-width: 1px;
+$shadow-panel: 0 8px 32px rgba(0, 0, 0, 0.65);
+$shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.04), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+$transition-fast: 120ms ease;
